@@ -123,73 +123,41 @@ ShopVN-Complete/
 - **Drill-down Analytics:** Clickable KPI cards revealing granular data
 - **Real-time Insights:** API-driven data updates
 
-### ✅ 6. Customer Interface (Removed for Scope)
-- Project deliberately pivoted from standard E-commerce flow to a dedicated high-level Executive BI tool.
+### ✅ 6. CEO Dashboard Interface
+- **Premium Dark-Themed SPA** with executive-focused design
+- **Interactive Visualizations:** Recharts, Grid layout, Glassmorphism UI
+- **Drill-down Analytics:** Deep-dive modals for strategic insights
+- **Real-time KPIs:** Live business metrics
 
-### ✅ 7. Data Consistency
-- Unified SQLite schema
-- OTP verification system
-- Bcrypt password hashing
-- Token expiration (7 days)
+### ✅ 7. Data Consistency & Security
+- Unified data model with H&M transaction schema
+- Mock authentication system for demo
+- Secure API endpoints
+- Persistent data management
 
 ---
 
 ## 🔐 Demo Users
 
-### Seller Account
+### Executive Account
 ```
-Email:    seller@demo.com
-Password: SellerPass123!
-Role:     Seller
+Email:    admin@demo.com
+Password: AdminPass123!
+Role:     CEO/Executive
 ```
-
-### Buyer Accounts
-```
-Email:    buyer1@demo.com
-Password: BuyerPass123!
-Role:     Buyer
-```
-
-**Or register new accounts** using OTP verification!
 
 ---
 
-## 📡 API Endpoints (36+)
+## 📡 API Endpoints
 
-### Authentication
-```
-POST   /api/auth/register              - Register account
-POST   /api/auth/login                 - Login
-POST   /api/auth/register/send-otp     - Send OTP
-POST   /api/auth/register/verify-otp   - Verify OTP & create account
-GET    /api/auth/me                    - Get profile
-```
-
-### Products
-```
-GET    /api/products                   - List products (with filters)
-GET    /api/products/{id}              - Get product details
-POST   /api/seller/products            - Create product
-PUT    /api/seller/products/{id}       - Update product
-DELETE /api/seller/products/{id}       - Delete product
-```
-
-### Shopping & Orders
-```
-GET    /api/cart                       - View cart
-POST   /api/cart/add                   - Add to cart
-PUT    /api/cart/{item_id}             - Update quantity
-POST   /api/orders/checkout            - Place order
-GET    /api/orders                     - View orders
-```
-
-### Analytics & ML
+### Analytics & ML (Core APIs)
 ```
 GET    /api/analytics/overview         - Dashboard KPIs
 GET    /api/analytics/segments         - Customer segments
 GET    /api/analytics/forecast         - Revenue forecast
 GET    /api/recommend/{customer_id}    - Recommendations
 GET    /api/basket/suggest             - Basket recommendations
+GET    /api/analytics/anomalies        - Fraud/Anomaly detection
 ```
 
 **Full API Docs:** http://localhost:8000/docs (when running)
@@ -207,18 +175,11 @@ pip install -r requirements.txt
 uvicorn server:app --reload --port 8000
 ```
 
-### Seller Dashboard Development
+### CEO Dashboard Development
 ```bash
-cd frontend/seller_app
+cd frontend/ceo_app
 npm install
 npm run dev  # Opens http://localhost:5173
-```
-
-### Buyer Portal Development
-```bash
-cd frontend/buyer_app
-npm install
-npm run dev  # Opens http://localhost:5174
 ```
 
 ---
@@ -227,6 +188,8 @@ npm run dev  # Opens http://localhost:5174
 
 ### Start All Services
 ```bash
+./start.sh
+# Or manually:
 cd docker
 docker-compose up --build
 ```
@@ -234,8 +197,7 @@ docker-compose up --build
 ### View Logs
 ```bash
 docker-compose logs -f backend
-docker-compose logs -f seller
-docker-compose logs -f buyer
+docker-compose logs -f ceo
 ```
 
 ### Stop Services
@@ -259,14 +221,13 @@ cd backend
 pytest tests/test_api.py -v
 ```
 
-### Manual E2E Testing
+### Manual Testing
 ```
-1. Register seller account → http://localhost:3001
-2. Create products
-3. Register buyer account → http://localhost:3002
-4. Browse products & add to cart
-5. Checkout with OTP verification
-6. View order in seller dashboard
+1. Start services: ./start.sh
+2. Access CEO Dashboard: http://localhost:3001
+3. Login with demo credentials
+4. Explore analytics and ML insights
+5. Check API docs: http://localhost:8000/docs
 ```
 
 ---
@@ -292,7 +253,7 @@ pytest tests/test_api.py -v
 ### Infrastructure
 - **Containerization:** Docker + Docker Compose
 - **Web Server:** Nginx
-- **Ports:** 8000 (API), 3001 (seller), 3002 (buyer)
+- **Ports:** 8000 (API), 3001 (CEO Dashboard)
 - **Volumes:** Persistent data in ./backend/data/
 
 ---
@@ -316,7 +277,7 @@ backend:
   ports:
     - "8001:8000"  # Change from 8000 to 8001
 
-seller:
+ceo:
   ports:
     - "3011:80"    # Change from 3001 to 3011
 ```
@@ -395,12 +356,12 @@ For issues or questions:
 
 ## 🎉 Summary
 
-Complete, production-ready e-commerce platform with:
-- ✅ 1M+ transaction dataset
-- ✅ 5 ML algorithms
-- ✅ Admin/seller dashboard
-- ✅ Customer portal
-- ✅ Full authentication (OTP)
+Complete, production-ready AI-driven executive analytics platform with:
+- ✅ 150K+ transaction dataset
+- ✅ 5 ML algorithms for strategic insights
+- ✅ CEO Executive Dashboard
+- ✅ Real-time analytics & anomaly detection
+- ✅ Mock authentication system
 - ✅ Docker deployment ready
 
 **Ready to use! Start with:**
