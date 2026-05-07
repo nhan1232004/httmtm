@@ -85,7 +85,7 @@ def startup():
             ML["anomalies_df"] = pd.read_parquet("data/anomalies.parquet")
     except Exception:
         pass
-    print(f"✅ Loaded {len(ML)} ML artifacts")
+    print(f"[OK] Loaded {len(ML)} ML artifacts")
 
 
 # ────────────────────────────────────────

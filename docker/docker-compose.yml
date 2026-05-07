@@ -19,28 +19,12 @@ services:
       timeout: 5s
       retries: 3
 
-  seller:
+  ceo:
     build:
       context: ..
-      dockerfile: docker/Dockerfile.seller
+      dockerfile: docker/Dockerfile.ceo
     ports:
       - "3001:80"
-    depends_on:
-      - backend
-    environment:
-      - VITE_API_URL=http://localhost:8000
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-
-  buyer:
-    build:
-      context: ..
-      dockerfile: docker/Dockerfile.buyer
-    ports:
-      - "3002:80"
     depends_on:
       - backend
     environment:

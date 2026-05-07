@@ -1,8 +1,8 @@
 FROM node:20-alpine as build
 WORKDIR /app
-COPY frontend/buyer_app/package*.json ./
+COPY frontend/ceo_app/package*.json ./
 RUN npm install --legacy-peer-deps
-COPY frontend/buyer_app/ .
+COPY frontend/ceo_app/ .
 RUN npm run build
 
 FROM nginx:alpine

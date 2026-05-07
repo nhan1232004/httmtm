@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, 
+import {
+  LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer,
   AreaChart, Area
 } from 'recharts';
@@ -13,7 +13,7 @@ const CEODashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [activeModal, setActiveModal] = useState(null);
 
-  const API_URL = "http://localhost:8000/api/ceo/dashboard";
+  const API_URL = "http://127.0.0.1:8000/api/ceo/dashboard";
 
   const fetchData = async () => {
     setLoading(true);
@@ -59,12 +59,12 @@ const CEODashboard = ({ onLogout }) => {
   if (!data) return null;
 
   // Destructure KPI data
-  const { 
-    kpi_business_scale: scale, 
-    kpi_risk_health: risk, 
-    kpi_customer_intelligence: cust, 
-    kpi_fashion_specific: fashion, 
-    kpi_strategic: strat 
+  const {
+    kpi_business_scale: scale,
+    kpi_risk_health: risk,
+    kpi_customer_intelligence: cust,
+    kpi_fashion_specific: fashion,
+    kpi_strategic: strat
   } = data;
 
   // Prepare chart data
@@ -263,7 +263,7 @@ const CEODashboard = ({ onLogout }) => {
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                 <XAxis dataKey="name" stroke={CHART_TEXT} />
                 <YAxis yAxisId="left" stroke={CHART_TEXT} orientation="left" />
-                <YAxis yAxisId="right" stroke={CHART_TEXT} orientation="right" tickFormatter={(val) => `£${val/1000}k`} />
+                <YAxis yAxisId="right" stroke={CHART_TEXT} orientation="right" tickFormatter={(val) => `£${val / 1000}k`} />
                 <RechartsTooltip contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151', color: '#e5e7eb' }} />
                 <Legend />
                 <Bar yAxisId="left" dataKey="value" name="Customers" fill="#3b82f6" radius={[4, 4, 0, 0]} />
@@ -323,15 +323,15 @@ const CEODashboard = ({ onLogout }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="charts-row">
         <div className="chart-card glass-panel wide">
           <h3>Customer Loyalty & Membership Revenue Share</h3>
           <div className="chart-wrapper tall">
             <ResponsiveContainer width="100%" height={400}>
               <BarChart data={loyaltyData} layout="vertical" margin={{ top: 20, right: 30, left: 40, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#374151" horizontal={true} vertical={false}/>
-                <XAxis type="number" stroke={CHART_TEXT} tickFormatter={(val) => `£${val/1000}k`} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" horizontal={true} vertical={false} />
+                <XAxis type="number" stroke={CHART_TEXT} tickFormatter={(val) => `£${val / 1000}k`} />
                 <YAxis type="category" dataKey="status" stroke={CHART_TEXT} width={100} />
                 <RechartsTooltip formatter={(val) => formatCurrency(val)} contentStyle={{ backgroundColor: '#1f2937', border: 'none', color: '#e5e7eb' }} />
                 <Bar dataKey="revenue" name="Revenue" fill="#f59e0b" radius={[0, 4, 4, 0]} barSize={30}>
@@ -343,15 +343,15 @@ const CEODashboard = ({ onLogout }) => {
             </ResponsiveContainer>
           </div>
         </div>
-        
+
         <div className="chart-card glass-panel">
           <h3>Seasonal Revenue Pattern</h3>
           <div className="chart-wrapper tall">
             <ResponsiveContainer width="100%" height={400}>
               <AreaChart data={fashion.seasonal_demand} margin={{ top: 20, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                <XAxis dataKey="month" stroke={CHART_TEXT} tick={{fontSize: 12}} />
-                <YAxis stroke={CHART_TEXT} tickFormatter={(val) => `${val/1000}k`} />
+                <XAxis dataKey="month" stroke={CHART_TEXT} tick={{ fontSize: 12 }} />
+                <YAxis stroke={CHART_TEXT} tickFormatter={(val) => `${val / 1000}k`} />
                 <RechartsTooltip formatter={(val) => formatCurrency(val)} contentStyle={{ backgroundColor: '#1f2937', border: 'none', color: '#e5e7eb' }} />
                 <Area type="monotone" dataKey="revenue" stroke="#ec4899" fill="#ec4899" fillOpacity={0.3} />
               </AreaChart>
@@ -390,12 +390,12 @@ const CEODashboard = ({ onLogout }) => {
           </div>
         </div>
       </div>
-      
+
       <div className="charts-row mt-4">
         <div className="chart-card glass-panel wide">
           <h3>Customer Age Demographics</h3>
           <div className="chart-wrapper">
-             <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300}>
               <BarChart data={ageData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
                 <XAxis dataKey="name" stroke={CHART_TEXT} />
@@ -457,7 +457,7 @@ const CEODashboard = ({ onLogout }) => {
           {activeTab === 'macro' && renderMacroStrategy()}
           {activeTab === 'risk' && renderRiskMgmt()}
         </div>
-        
+
         {renderModal()}
       </main>
     </div>

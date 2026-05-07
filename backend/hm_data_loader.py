@@ -64,7 +64,7 @@ class HMDataLoader:
                 f"Place at: {filepath}"
             )
 
-        print(f"📦 Loading transactions from {filepath}...")
+        print(f"[LOAD] Loading transactions from {filepath}...")
         if sample_size:
             df = pd.read_csv(filepath, nrows=sample_size)
         else:
@@ -73,7 +73,7 @@ class HMDataLoader:
         df['t_dat'] = pd.to_datetime(df['t_dat'])
         df = df.dropna(subset=['customer_id', 'article_id', 'price'])
         df = df[df['price'] > 0]
-        print(f"  ✓ Loaded {len(df):,} transactions")
+        print(f"  [OK] Loaded {len(df):,} transactions")
         return df
 
     @staticmethod
@@ -85,7 +85,7 @@ class HMDataLoader:
         if not os.path.exists(filepath):
             raise FileNotFoundError(f"Articles file not found: {filepath}")
 
-        print(f"📦 Loading articles from {filepath}...")
+        print(f"[LOAD] Loading articles from {filepath}...")
         df = pd.read_csv(filepath, dtype={'article_id': str})
         df = df.fillna({
             'prod_name': 'Unknown Product',
@@ -95,7 +95,7 @@ class HMDataLoader:
             'department_name': 'Womens',
             'detail_desc': ''
         })
-        print(f"  ✓ Loaded {len(df):,} articles")
+        print(f"  [OK] Loaded {len(df):,} articles")
         return df
 
     @staticmethod
@@ -105,12 +105,12 @@ class HMDataLoader:
             filepath = os.path.join(DATA_DIR, "customers.csv")
 
         if not os.path.exists(filepath):
-            print("  ⚠ Customers file not found, will use synthetic demographics")
+            print("  [WARN] Customers file not found, will use synthetic demographics")
             return None
 
-        print(f"📦 Loading customers from {filepath}...")
+        print(f"[LOAD] Loading customers from {filepath}...")
         df = pd.read_csv(filepath)
-        print(f"  ✓ Loaded {len(df):,} customers")
+        print(f"  [OK] Loaded {len(df):,} customers")
         return df
 
     @staticmethod
@@ -123,7 +123,7 @@ class HMDataLoader:
             transactions_df, articles_df, customers_df
         """
         np.random.seed(random_seed)
-        print(f"\n🎲 Generating H&M synthetic dataset ({n_transactions:,} transactions)...")
+        print(f"\n[INFO] Generating H&M synthetic dataset ({n_transactions:,} transactions)...")
 
         # ── Time range: Sep 2018 → Sep 2020 (real H&M period) ──
         end_date   = pd.Timestamp("2020-09-22")
@@ -208,10 +208,10 @@ class HMDataLoader:
             'sales_channel_id': channels,
         }).sort_values('t_dat').reset_index(drop=True)
 
-        print(f"  ✓ Transactions: {len(transactions_df):,} rows")
-        print(f"  ✓ Articles:     {len(articles_df):,} products")
-        print(f"  ✓ Customers:    {len(customers_df):,} customers")
-        print(f"  ✓ Date range:   {transactions_df['t_dat'].min().date()} → {transactions_df['t_dat'].max().date()}")
+        print(f"  [OK] Transactions: {len(transactions_df):,} rows")
+        print(f"  [OK] Articles:     {len(articles_df):,} products")
+        print(f"  [OK] Customers:    {len(customers_df):,} customers")
+        print(f"  [OK] Date range:   {transactions_df['t_dat'].min().date()} → {transactions_df['t_dat'].max().date()}")
 
         return transactions_df, articles_df, customers_df
 
@@ -355,7 +355,7 @@ def load_hm_data(use_demo=True, sample_size=500_000):
 
 def _prepare_analytics_dataset(transactions_df, articles_df, customers_df=None):
     """Merge and enrich data for analytics"""
-    print("\n🔄 Preparing analytics dataset...")
+    print("\n[SYNC] Preparing analytics dataset...")
 
     article_cols = ['article_id', 'prod_name', 'product_type_name',
                     'product_group_name', 'colour_group_name', 'department_name']
@@ -378,5 +378,5 @@ def _prepare_analytics_dataset(transactions_df, articles_df, customers_df=None):
     df['month']      = df['t_dat'].dt.month
     df['year']       = df['t_dat'].dt.year
 
-    print(f"  ✓ Analytics dataset: {len(df):,} rows, {len(df.columns)} columns")
+    print(f"  [OK] Analytics dataset: {len(df):,} rows, {len(df.columns)} columns")
     return df

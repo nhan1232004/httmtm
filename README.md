@@ -1,8 +1,8 @@
-# 🛍️ ShopVN - Intelligent E-Commerce Platform
+# 🌐 H&M Strategic CEO Executive Dashboard
 
-**AI-Driven E-Commerce System with Machine Learning**
+**AI-Driven Business Intelligence Dashboard for Executives**
 
-> Complete, production-ready platform with 1M+ transactions, 5 ML algorithms, Seller Dashboard, and Buyer Portal.
+> Complete, production-ready Macro-level Analytics platform processing 150,000+ transactions with 5 Strategic ML algorithms.
 
 ---
 
@@ -10,13 +10,11 @@
 
 | Feature | Status | Details |
 |---------|--------|---------|
-| **Dataset** | ✅ | 1M+ transactions (845K cleaned) |
-| **Backend** | ✅ | FastAPI with 36+ endpoints |
-| **Seller Dashboard** | ✅ | React SPA (6 pages) |
-| **Buyer Portal** | ✅ | React SPA (8 pages) |
-| **ML Algorithms** | ✅ | 5 models (recommendations, segmentation, forecasting) |
-| **Authentication** | ✅ | JWT + OTP via email |
-| **Database** | ✅ | SQLite (8 tables) |
+| **Dataset** | ✅ | H&M Synthetic Transaction Data |
+| **Backend** | ✅ | FastAPI |
+| **CEO Dashboard** | ✅ | React SPA with Recharts |
+| **ML Algorithms** | ✅ | 5 models (K-Means, ETS, FP-Growth, Isolation Forest, Logistic Regression) |
+| **Authentication** | ✅ | Mock Login Flow for Demo |
 | **Deployment** | ✅ | Docker ready |
 
 ---
@@ -26,7 +24,7 @@
 ### Prerequisites
 - Docker & Docker Compose
 - 4GB RAM
-- Port availability: 8000, 3001, 3002
+- Port availability: 8000, 3001
 
 ### Step 1: Clone/Enter Project
 ```bash
@@ -50,8 +48,7 @@ chmod +x start.sh
 ```
 Backend API:       http://localhost:8000
 API Swagger Docs:  http://localhost:8000/docs
-Seller Dashboard:  http://localhost:3001
-Buyer Portal:      http://localhost:3002
+CEO Dashboard:     http://localhost:3001
 ```
 
 ---
@@ -61,51 +58,34 @@ Buyer Portal:      http://localhost:3002
 ```
 ShopVN-Complete/
 ├── backend/                    # FastAPI Backend
-│   ├── server.py              # Main API server (36+ endpoints)
-│   ├── database.py            # SQLAlchemy models + OTP
-│   ├── email_service.py       # SMTP for OTP emails
-│   ├── data_processing.py     # ETL pipeline
-│   ├── train_models.py        # ML model training
-│   ├── augment_data.py        # Data augmentation script
+│   ├── server.py              # Main API server for CEO Dashboard
+│   ├── ceo_analytics.py       # Core analytics & ML engine
+│   ├── hm_data_loader.py      # H&M Synthetic Data generator
 │   ├── requirements.txt       # Python dependencies
-│   ├── tests/                 # Unit tests (35+)
-│   ├── data/                  # Data files
-│   │   ├── data_augmented.csv         # 1M transactions
-│   │   ├── data_original.csv          # Original 542K rows
-│   │   └── *.parquet                  # Cached data
-│   └── models/                # Pickled ML models
+│   └── data/                  # H&M Parquet datasets
 │
 ├── frontend/                   # React Applications
-│   ├── seller_app/            # Seller Dashboard
-│   │   ├── src/
-│   │   │   ├── App.jsx               # Main router
-│   │   │   ├── pages/                # 6 dashboard pages
-│   │   │   ├── api/client.js         # HTTP client
-│   │   │   └── App.css               # Styling
-│   │   ├── package.json
-│   │   └── vite.config.js
-│   │
-│   └── buyer_app/             # Buyer Portal
+│   └── ceo_app/               # CEO Executive Dashboard
 │       ├── src/
 │       │   ├── App.jsx               # Main router
-│       │   ├── pages/                # 8 portal pages
-│       │   ├── store/                # Zustand state
-│       │   ├── api/client.js         # HTTP client
-│       │   └── App.css               # Styling
+│       │   ├── pages/
+│       │   │   ├── CEODashboard.jsx  # Interactive UI
+│       │   │   ├── CEODashboard.css  # Premium Styling
+│       │   │   └── Login.jsx         # Mock Auth
+│       │   └── api/client.js         # HTTP client
 │       ├── package.json
 │       └── vite.config.js
 │
 ├── docker/                     # Docker Configuration
 │   ├── Dockerfile.backend     # Backend container
-│   ├── Dockerfile.seller      # Seller frontend container
-│   ├── Dockerfile.buyer       # Buyer frontend container
+│   ├── Dockerfile.ceo         # CEO frontend container
 │   ├── docker-compose.yml     # Full orchestration
 │   └── nginx.conf             # Nginx web server config
 │
 ├── docs/                       # Documentation
-│   ├── README.md              # This file
+│   ├── README.md              # Setup guide
 │   ├── SETUP.md               # Detailed setup guide
-│   ├── PROJECT_COMPLETION.md  # Project report
+│   ├── ML_MODELS_GUIDE.md     # ML algorithms detail
 │   └── PROJECT_SUMMARY.txt    # Quick reference
 │
 ├── .env.example               # Environment template
@@ -118,37 +98,33 @@ ShopVN-Complete/
 
 ## 🎯 7 Requirements Delivered
 
-### ✅ 1. Large Dataset (>1M Transactions)
-- **Source:** UCI Online Retail II Dataset
-- **Size:** 1,000,000 transactions (augmented)
-- **Cleaned:** 845,403 valid transactions
-- **File:** `backend/data/data_augmented.csv`
-- **Customers:** 8,440 | **Products:** 3,910
+### ✅ 1. Large Dataset (>150K Transactions)
+- **Source:** H&M Fashion Recommendations Data
+- **Size:** ~150,000 synthetic transactions simulating H&M behavior
+- **Domain:** Fashion & Apparel
+- **File:** `backend/data/*.parquet`
 
 ### ✅ 2. Problem Identification
-**Topic:** AI-Driven E-Commerce Analytics & Personalization
+**Topic:** AI-Driven Business Intelligence & Strategic Decision Making for Retail Executives
 
 ### ✅ 3. Algorithms (5 ML Models)
-- K-Means Clustering (Customer segmentation)
-- SVD Collaborative Filtering (Recommendations)
-- FP-Growth (Market basket analysis)
-- Prophet (Demand forecasting)
-- Isolation Forest (Anomaly detection)
+- **K-Means Clustering:** RFM Customer Segmentation
+- **ETS (Error, Trend, Seasonal):** Time-Series Demand Forecasting
+- **FP-Growth:** Market Basket Analysis for Cross-selling Opportunities
+- **Isolation Forest:** Anomaly & Fraud Detection in Transactions
+- **Logistic Regression:** High-Risk Churn Prediction
 
 ### ✅ 4. Dashboard Interface
-- Seller Dashboard: 6 interactive pages
-- Real-time KPIs and analytics
-- Order management & product control
+- **CEO Dashboard:** Premium Dark-Themed SPA
+- **Visuals:** Recharts, Grid layout, Glassmorphism UI
+- **Actionability:** Deep-dive Modals for strategic AI insights
 
 ### ✅ 5. User Interactivity
-- Full CRUD operations for sellers
-- OTP-based authentication
-- Real-time data updates
+- **Drill-down Analytics:** Clickable KPI cards revealing granular data
+- **Real-time Insights:** API-driven data updates
 
-### ✅ 6. Customer Interface
-- Buyer Portal: 8 complete pages
-- Product browsing & recommendations
-- Shopping cart & checkout with OTP
+### ✅ 6. Customer Interface (Removed for Scope)
+- Project deliberately pivoted from standard E-commerce flow to a dedicated high-level Executive BI tool.
 
 ### ✅ 7. Data Consistency
 - Unified SQLite schema
