@@ -1,0 +1,39 @@
+MÔ TẢ DỮ LIỆU
+Nguồn dữ liệu: https://huggingface.co/datasets/einrafh/hnm-fashion-recommendations-data/viewer/articles/train
+Tên dataset: HNM Fashion Recomendation Data
+Nguồn gốc: H&M Group (via Kaggle/Hugging Face)
+Tải về: 
+Thông số dữ liệu gốc
+Thuộc tính	Giá trị
+Số giao dịch gốc	~31.8m dòng
+Thời gian	20/09/2018 — 22/09/2020 (2 năm)
+
+Số sản phẩm	~106k mã hàng
+Số khách hàng	~1.37m CustomerID
+Các cột dữ liệu chính:
+- Dữ liêu giao dịch (transaction.csv)
+Cột			Ý nghĩa
+t_dat			Ngày diễn ra giao dịch
+customer_id		Mã khách hàng thực hiện mua
+article_id		Mã sản phẩm được mua
+price			Giá sản phẩm tại thời điểm giao dịch
+sales_channel_id	Kênh bán hàng (1: Online, 2: Store)
+- Dữ liêu sản phẩm (article.csv)
+Cột			Ý nghĩa
+article_id		Mã định danh duy nhất cho sản phẩm
+prod_name		Tên sản phẩm
+product_type_name	Loại sản phẩm (Vest, Bra, Trousers...)
+product_group_name	Nhóm sản phẩm (Upper body, Lower body...)
+colour_group_name	Màu sắc sản phẩm
+department_name		Tên bộ phận quản lý hàng hóa
+detail_desc		Mô tả chi tiết sản phẩm
+- Dữ liêu khách hàng (customer.csv)
+Cột			Ý nghĩa
+article_id		Mã định danh duy nhất cho sản phẩm
+customer_id		Mã định danh duy nhất cho khách hàng
+FN			Trạng thái nhận tin nhắn thời trang (1/0)
+Active			Trạng thái hoạt động của khách hàng
+club_member_status	Tình trạng thành viên (Active, Pre-create...)
+age			Độ tuổi của khách hang
+postal_code		Mã bưu chính của khách hàng
+

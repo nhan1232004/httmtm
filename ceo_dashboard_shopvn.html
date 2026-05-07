@@ -1,0 +1,286 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.badge{display:inline-flex;align-items:center;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;gap:4px}
+.badge-up{background:var(--color-background-success);color:var(--color-text-success)}
+.badge-down{background:var(--color-background-danger);color:var(--color-text-danger)}
+.badge-warn{background:var(--color-background-warning);color:var(--color-text-warning)}
+.badge-info{background:var(--color-background-info);color:var(--color-text-info)}
+.section-title{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:14px 16px}
+.kpi-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:14px}
+.kpi-label{font-size:11px;color:var(--color-text-tertiary);margin-bottom:6px;font-weight:500;letter-spacing:.03em}
+.kpi-value{font-size:22px;font-weight:500;color:var(--color-text-primary);line-height:1}
+.kpi-sub{font-size:11px;color:var(--color-text-secondary);margin-top:5px;display:flex;align-items:center;gap:5px}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:12px 0}
+.seg-bar{height:6px;border-radius:3px;margin-top:4px}
+.priority-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.priority-row:last-child{border-bottom:none}
+.priority-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.metric-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary)}
+.metric-row:last-child{border-bottom:none}
+.btn-action{font-size:12px;padding:4px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:transparent;color:var(--color-text-primary);cursor:pointer}
+.btn-action:hover{background:var(--color-background-secondary)}
+.sparkline{display:flex;align-items:flex-end;gap:2px;height:28px}
+.spark-bar{width:5px;border-radius:2px 2px 0 0;background:var(--color-border-primary);opacity:.5}
+.spark-bar.active{opacity:1}
+.tab{font-size:12px;padding:4px 10px;border:none;background:transparent;cursor:pointer;color:var(--color-text-secondary);border-bottom:2px solid transparent}
+.tab.on{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary);font-weight:500}
+</style>
+
+<div style="padding:0 0 1rem">
+
+  <!-- Header strip -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <div>
+      <p style="font-size:18px;font-weight:500;color:var(--color-text-primary)">ShopVN — Executive Dashboard</p>
+      <p style="font-size:12px;color:var(--color-text-tertiary);margin-top:2px">Phục vụ lãnh đạo cấp cao · Cập nhật 02/05/2026</p>
+    </div>
+    <span class="badge badge-warn">⬤ Live demo data</span>
+  </div>
+
+  <!-- ① TIER 1: QUY MÔ CÔNG TY — 6 KPI cards -->
+  <p class="section-title">① Quy mô & sức khỏe doanh nghiệp — CEO cần biết ngay</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px">
+
+    <div class="kpi-card">
+      <p class="kpi-label">TỔNG DOANH THU (YTD)</p>
+      <p class="kpi-value">£8.2M</p>
+      <p class="kpi-sub"><span class="badge badge-up">↑ 14%</span> vs năm ngoái</p>
+    </div>
+
+    <div class="kpi-card">
+      <p class="kpi-label">KHÁCH HÀNG HOẠT ĐỘNG</p>
+      <p class="kpi-value">8,440</p>
+      <p class="kpi-sub"><span class="badge badge-up">↑ 820</span> quý này</p>
+    </div>
+
+    <div class="kpi-card">
+      <p class="kpi-label">GIÁ TRỊ ĐƠN TB (AOV)</p>
+      <p class="kpi-value">£20.4</p>
+      <p class="kpi-sub"><span class="badge badge-down">↓ 3%</span> cần theo dõi</p>
+    </div>
+
+    <div class="kpi-card">
+      <p class="kpi-label">DOANH THU SẼ MẤT (CHURN)</p>
+      <p class="kpi-value" style="color:var(--color-text-danger)">£1.1M</p>
+      <p class="kpi-sub"><span class="badge badge-warn">⚠ 540 KH nguy cơ cao</span></p>
+    </div>
+
+    <div class="kpi-card">
+      <p class="kpi-label">GIAO DỊCH BẤT THƯỜNG</p>
+      <p class="kpi-value" style="color:var(--color-text-warning)">£62K</p>
+      <p class="kpi-sub"><span class="badge badge-warn">5% tổng GD</span> rủi ro</p>
+    </div>
+
+    <div class="kpi-card">
+      <p class="kpi-label">TỈ LỆ ĐƠN HỦY</p>
+      <p class="kpi-value">6.8%</p>
+      <p class="kpi-sub"><span class="badge badge-info">Ngưỡng an toàn &lt;10%</span></p>
+    </div>
+
+  </div>
+
+  <!-- ② TIER 2: hai cột — Phân khúc + Dự báo -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+
+    <!-- Phân khúc khách hàng -->
+    <div class="card">
+      <p class="section-title">② Phân khúc khách hàng (K-Means RFM)</p>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:10px">80/20 Rule: 20% KH → 78% doanh thu</p>
+
+      <div style="margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:500">Champions</span>
+          <div style="display:flex;gap:6px;align-items:center">
+            <span style="font-size:11px;color:var(--color-text-secondary)">1,266 KH</span>
+            <span class="badge badge-up">50% DT</span>
+          </div>
+        </div>
+        <div class="seg-bar" style="background:#1D9E75;width:95%"></div>
+      </div>
+
+      <div style="margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:500">Loyal</span>
+          <div style="display:flex;gap:6px;align-items:center">
+            <span style="font-size:11px;color:var(--color-text-secondary)">1,688 KH</span>
+            <span class="badge badge-info">25% DT</span>
+          </div>
+        </div>
+        <div class="seg-bar" style="background:#185FA5;width:65%"></div>
+      </div>
+
+      <div style="margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:500">At-Risk</span>
+          <div style="display:flex;gap:6px;align-items:center">
+            <span style="font-size:11px;color:var(--color-text-secondary)">1,688 KH</span>
+            <span class="badge badge-warn">15% DT</span>
+          </div>
+        </div>
+        <div class="seg-bar" style="background:#BA7517;width:40%"></div>
+      </div>
+
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;font-weight:500">Lost</span>
+          <div style="display:flex;gap:6px;align-items:center">
+            <span style="font-size:11px;color:var(--color-text-secondary)">844 KH</span>
+            <span class="badge badge-down">3% DT</span>
+          </div>
+        </div>
+        <div class="seg-bar" style="background:#A32D2D;width:15%"></div>
+      </div>
+
+      <hr class="divider">
+      <p style="font-size:11px;color:var(--color-text-secondary)">→ <strong>Quyết định CEO:</strong> Tập trung giữ Champions & chuyển đổi Loyal → Champions</p>
+    </div>
+
+    <!-- Dự báo doanh thu -->
+    <div class="card">
+      <p class="section-title">③ Dự báo doanh thu 3 tháng tới (Prophet)</p>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px">
+        <div style="text-align:center;padding:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)">
+          <p style="font-size:10px;color:var(--color-text-tertiary)">Tháng 6</p>
+          <p style="font-size:16px;font-weight:500">£680K</p>
+          <p style="font-size:10px;color:var(--color-text-success)">↑ 8%</p>
+        </div>
+        <div style="text-align:center;padding:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)">
+          <p style="font-size:10px;color:var(--color-text-tertiary)">Tháng 7</p>
+          <p style="font-size:16px;font-weight:500">£720K</p>
+          <p style="font-size:10px;color:var(--color-text-success)">↑ 6%</p>
+        </div>
+        <div style="text-align:center;padding:8px;background:var(--color-background-warning);border-radius:var(--border-radius-md)">
+          <p style="font-size:10px;color:var(--color-text-warning)">Tháng 8</p>
+          <p style="font-size:16px;font-weight:500">£695K</p>
+          <p style="font-size:10px;color:var(--color-text-warning)">Peak season</p>
+        </div>
+      </div>
+
+      <!-- Mini sparkline -->
+      <div style="display:flex;align-items:flex-end;gap:3px;height:40px;margin-bottom:8px">
+        <div style="flex:1;height:50%;background:var(--color-border-tertiary);border-radius:2px 2px 0 0"></div>
+        <div style="flex:1;height:55%;background:var(--color-border-tertiary);border-radius:2px 2px 0 0"></div>
+        <div style="flex:1;height:60%;background:var(--color-border-tertiary);border-radius:2px 2px 0 0"></div>
+        <div style="flex:1;height:70%;background:var(--color-border-tertiary);border-radius:2px 2px 0 0"></div>
+        <div style="flex:1;height:75%;background:var(--color-border-tertiary);border-radius:2px 2px 0 0"></div>
+        <div style="flex:1;height:65%;background:var(--color-border-secondary);border-radius:2px 2px 0 0"></div>
+        <div style="flex:1;height:80%;background:var(--color-text-info);border-radius:2px 2px 0 0;opacity:.6"></div>
+        <div style="flex:1;height:85%;background:var(--color-text-info);border-radius:2px 2px 0 0;opacity:.6"></div>
+        <div style="flex:1;height:82%;background:var(--color-text-info);border-radius:2px 2px 0 0;opacity:.4"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--color-text-tertiary)">
+        <span>Thực tế (6 tháng)</span><span style="color:var(--color-text-info)">Dự báo (3 tháng)</span>
+      </div>
+
+      <hr class="divider">
+      <p style="font-size:11px;color:var(--color-text-secondary)">→ <strong>Quyết định CEO:</strong> Chuẩn bị tồn kho & marketing trước tháng 8 (peak)</p>
+    </div>
+
+  </div>
+
+  <!-- ③ TIER 3: Cơ hội + Rủi ro + Hành động -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+
+    <!-- Cơ hội cross-sell -->
+    <div class="card">
+      <p class="section-title">④ Cơ hội kinh doanh (FP-Growth)</p>
+      <p style="font-size:11px;color:var(--color-text-secondary);margin-bottom:8px">Top bundle recommendations — Lift cao nhất</p>
+
+      <div class="metric-row">
+        <div>
+          <p style="font-size:12px;font-weight:500">Sản phẩm A → Sản phẩm B</p>
+          <p style="font-size:11px;color:var(--color-text-tertiary)">Confidence 73%</p>
+        </div>
+        <span class="badge badge-up">Lift 4.2×</span>
+      </div>
+      <div class="metric-row">
+        <div>
+          <p style="font-size:12px;font-weight:500">Sản phẩm C → Sản phẩm D</p>
+          <p style="font-size:11px;color:var(--color-text-tertiary)">Confidence 61%</p>
+        </div>
+        <span class="badge badge-up">Lift 3.8×</span>
+      </div>
+      <div class="metric-row">
+        <div>
+          <p style="font-size:12px;font-weight:500">Sản phẩm E → Sản phẩm F</p>
+          <p style="font-size:11px;color:var(--color-text-tertiary)">Confidence 58%</p>
+        </div>
+        <span class="badge badge-info">Lift 3.1×</span>
+      </div>
+
+      <hr class="divider">
+      <p style="font-size:11px;color:var(--color-text-secondary)">→ <strong>Quyết định CEO:</strong> Triển khai bundle pricing & "Frequently bought together"</p>
+    </div>
+
+    <!-- Rủi ro & hành động -->
+    <div class="card">
+      <p class="section-title">⑤ Rủi ro & ưu tiên hành động ngay</p>
+
+      <div class="priority-row">
+        <div class="priority-dot" style="background:var(--color-text-danger)"></div>
+        <div>
+          <p style="font-size:12px;font-weight:500;color:var(--color-text-primary)">Churn: 540 KH sắp rời bỏ</p>
+          <p style="font-size:11px;color:var(--color-text-secondary)">Doanh thu rủi ro: <strong>£1.1M</strong> — Can thiệp ngay bằng voucher giữ chân</p>
+        </div>
+      </div>
+
+      <div class="priority-row">
+        <div class="priority-dot" style="background:var(--color-text-warning)"></div>
+        <div>
+          <p style="font-size:12px;font-weight:500">Giao dịch bất thường: £62K</p>
+          <p style="font-size:11px;color:var(--color-text-secondary)">5% tổng GD — Review thủ công top 20 giao dịch nghi vấn</p>
+        </div>
+      </div>
+
+      <div class="priority-row">
+        <div class="priority-dot" style="background:var(--color-text-info)"></div>
+        <div>
+          <p style="font-size:12px;font-weight:500">AOV giảm 3% — Cần upsell</p>
+          <p style="font-size:11px;color:var(--color-text-secondary)">Kích hoạt gợi ý SVD cho Champions & Loyal</p>
+        </div>
+      </div>
+
+      <div class="priority-row">
+        <div class="priority-dot" style="background:var(--color-text-success)"></div>
+        <div>
+          <p style="font-size:12px;font-weight:500">Peak tháng 8 — Cơ hội</p>
+          <p style="font-size:11px;color:var(--color-text-secondary)">Tăng tồn kho top 10 SKU, chuẩn bị flash sale</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ④ FOOTER: Hành vi mua theo giờ + quyết định cuối -->
+  <div class="card">
+    <p class="section-title">⑥ Hành vi đặt hàng theo thời gian — Tối ưu vận hành & marketing</p>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px">
+      <div style="text-align:center;font-size:10px;color:var(--color-text-tertiary)">T2</div>
+      <div style="text-align:center;font-size:10px;color:var(--color-text-tertiary)">T3</div>
+      <div style="text-align:center;font-size:10px;color:var(--color-text-tertiary)">T4</div>
+      <div style="text-align:center;font-size:10px;color:var(--color-text-tertiary)">T5</div>
+      <div style="text-align:center;font-size:10px;color:var(--color-text-tertiary)">T6</div>
+      <div style="text-align:center;font-size:10px;color:var(--color-text-tertiary)">T7</div>
+      <div style="text-align:center;font-size:10px;color:var(--color-text-tertiary)">CN</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px">
+      <div style="height:28px;background:var(--color-background-info);border-radius:3px;opacity:.5"></div>
+      <div style="height:28px;background:var(--color-background-info);border-radius:3px;opacity:.7"></div>
+      <div style="height:28px;background:var(--color-background-info);border-radius:3px;opacity:.9"></div>
+      <div style="height:28px;background:var(--color-text-info);border-radius:3px;opacity:.8"></div>
+      <div style="height:28px;background:var(--color-text-info);border-radius:3px"></div>
+      <div style="height:28px;background:var(--color-background-warning);border-radius:3px;opacity:.9"></div>
+      <div style="height:28px;background:var(--color-background-secondary);border-radius:3px;opacity:.5"></div>
+    </div>
+    <div style="display:flex;gap:16px;margin-top:10px;font-size:11px;color:var(--color-text-secondary)">
+      <span>⬤ Thấp</span>
+      <span style="color:var(--color-text-info)">⬤ Cao (Thứ 5–6 peak)</span>
+      <span style="color:var(--color-text-warning)">⬤ Thứ 7 tốt</span>
+      <span style="margin-left:auto"><strong>→ CEO:</strong> Chạy ads Thứ 4–Thứ 6 · Flash sale Thứ 7 sáng</span>
+    </div>
+  </div>
+
+</div>
