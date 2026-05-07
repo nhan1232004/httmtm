@@ -13,7 +13,8 @@ const CEODashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [activeModal, setActiveModal] = useState(null);
 
-  const API_URL = "http://127.0.0.1:8000/api/ceo/dashboard";
+  const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const API_URL = `${API_BASE}/api/ceo/dashboard`;
 
   const fetchData = async () => {
     setLoading(true);

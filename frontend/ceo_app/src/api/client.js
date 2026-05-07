@@ -1,10 +1,9 @@
-// API client configuration with axios
-// Handles Bearer token authentication, error handling, and base URL configuration
-// Token stored in localStorage as 'seller_auth_token'
+// API client configuration for CEO Dashboard
+// Uses Analytics & ML endpoints for strategic insights
 
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 // Create axios instance
 const axiosInstance = axios.create({
@@ -18,7 +17,7 @@ const axiosInstance = axios.create({
 // Request interceptor to add Bearer token
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('seller_auth_token');
+    const token = localStorage.getItem('ceo_auth_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -33,192 +32,110 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Handle 401 Unauthorized
     if (error.response?.status === 401) {
-      localStorage.removeItem('seller_auth_token');
-      localStorage.removeItem('seller_user_id');
-      localStorage.removeItem('seller_email');
+      localStorage.removeItem('ceo_auth_token');
+      localStorage.removeItem('ceo_user_id');
+      localStorage.removeItem('ceo_email');
       window.location.href = '/login';
     }
     return Promise.reject(error);
   }
 );
 
-// Auth APIs
+// Authentication APIs
 export const authAPI = {
-  // Send OTP to email
-  sendOTP: async (email) => {
-    const response = await axiosInstance.post('/api/auth/register/send-otp', { email });
+  login: async (email, password) => {
+    const response = await axiosInstance.post('/api/auth/login', { email, password });
     return response.data;
   },
 
-  // Verify OTP and get token
-  verifyOTP: async (email, otp) => {
-    const response = await axiosInstance.post('/api/auth/register/verify-otp', {
-      email,
-      code: otp,
-      name: email.split('@')[0],
-      password: 'TempPass123!',
-      role: 'seller'
-    });
-    return response.data;
-  },
-
-  // Logout
   logout: async () => {
     try {
       await axiosInstance.post('/api/auth/logout');
     } catch (error) {
       console.log('Logout error:', error);
     }
-    localStorage.removeItem('seller_auth_token');
-    localStorage.removeItem('seller_user_id');
-    localStorage.removeItem('seller_email');
-  },
-};
-
-// Dashboard APIs
-export const dashboardAPI = {
-  // Get dashboard overview stats
-  getStats: async () => {
-    const response = await axiosInstance.get('/api/seller/dashboard/stats');
-    return response.data;
+    localStorage.removeItem('ceo_auth_token');
+    localStorage.removeItem('ceo_user_id');
+    localStorage.removeItem('ceo_email');
   },
 
-  // Get revenue trend data
-  getRevenueTrend: async (days = 30) => {
-    const response = await axiosInstance.get(`/api/seller/dashboard/revenue-trend?days=${days}`);
+  getProfile: async () => {
+    const response = await axiosInstance.get('/api/auth/me');
     return response.data;
   },
 };
 
-// Orders APIs
-export const ordersAPI = {
-  // Get seller's orders
-  getOrders: async (page = 1, limit = 20, status = null) => {
-    let url = `/api/seller/orders?page=${page}&limit=${limit}`;
-    if (status) {
-      url += `&status=${status}`;
-    }
-    const response = await axiosInstance.get(url);
-    return response.data;
-  },
-
-  // Get order details
-  getOrderDetails: async (orderId) => {
-    const response = await axiosInstance.get(`/api/seller/orders/${orderId}`);
-    return response.data;
-  },
-
-  // Update order status
-  updateOrderStatus: async (orderId, status) => {
-    const response = await axiosInstance.patch(`/api/seller/orders/${orderId}`, { status });
-    return response.data;
-  },
-};
-
-// Products APIs
-export const productsAPI = {
-  // Get all seller's products
-  getProducts: async (page = 1, limit = 20, search = null) => {
-    let url = `/api/seller/products?page=${page}&limit=${limit}`;
-    if (search) {
-      url += `&search=${encodeURIComponent(search)}`;
-    }
-    const response = await axiosInstance.get(url);
-    return response.data;
-  },
-
-  // Get product details
-  getProductDetails: async (productId) => {
-    const response = await axiosInstance.get(`/api/seller/products/${productId}`);
-    return response.data;
-  },
-
-  // Create new product
-  createProduct: async (productData) => {
-    const response = await axiosInstance.post('/api/seller/products', productData);
-    return response.data;
-  },
-
-  // Update product
-  updateProduct: async (productId, productData) => {
-    const response = await axiosInstance.patch(`/api/seller/products/${productId}`, productData);
-    return response.data;
-  },
-
-  // Delete product
-  deleteProduct: async (productId) => {
-    const response = await axiosInstance.delete(`/api/seller/products/${productId}`);
-    return response.data;
-  },
-
-  // Get product categories
-  getCategories: async () => {
-    const response = await axiosInstance.get('/api/seller/products/categories');
+// CEO Dashboard API
+export const ceoAPI = {
+  getDashboard: async () => {
+    const response = await axiosInstance.get('/api/ceo/dashboard');
     return response.data;
   },
 };
 
 // Analytics APIs
 export const analyticsAPI = {
-  // Get sales by category
-  getSalesByCategory: async (days = 30) => {
-    const response = await axiosInstance.get(`/api/seller/analytics/sales-by-category?days=${days}`);
+  getOverview: async () => {
+    const response = await axiosInstance.get('/api/analytics/overview');
     return response.data;
   },
 
-  // Get top products
-  getTopProducts: async (limit = 10) => {
-    const response = await axiosInstance.get(`/api/seller/analytics/top-products?limit=${limit}`);
+  getGeography: async () => {
+    const response = await axiosInstance.get('/api/analytics/geography');
     return response.data;
   },
 
-  // Get customer insights
-  getCustomerInsights: async () => {
-    const response = await axiosInstance.get('/api/seller/analytics/customer-insights');
+  getHeatmap: async () => {
+    const response = await axiosInstance.get('/api/analytics/heatmap');
     return response.data;
   },
 
-  // Get recommendations
-  getRecommendations: async () => {
-    const response = await axiosInstance.get('/api/seller/analytics/recommendations');
+  getForecast: async () => {
+    const response = await axiosInstance.get('/api/analytics/forecast');
+    return response.data;
+  },
+
+  getSegments: async () => {
+    const response = await axiosInstance.get('/api/analytics/segments');
+    return response.data;
+  },
+
+  getRules: async () => {
+    const response = await axiosInstance.get('/api/analytics/rules');
+    return response.data;
+  },
+
+  getAnomalies: async () => {
+    const response = await axiosInstance.get('/api/analytics/anomalies');
+    return response.data;
+  },
+
+  getChurnRisk: async () => {
+    const response = await axiosInstance.get('/api/analytics/churn-risk');
     return response.data;
   },
 };
 
-// Account APIs
-export const accountAPI = {
-  // Get seller profile
-  getProfile: async () => {
-    const response = await axiosInstance.get('/api/seller/account/profile');
+// ML Inference APIs
+export const mlAPI = {
+  getRecommendations: async (customerId) => {
+    const response = await axiosInstance.get(`/api/recommend/${customerId}`);
     return response.data;
   },
 
-  // Update seller profile
-  updateProfile: async (profileData) => {
-    const response = await axiosInstance.patch('/api/seller/account/profile', profileData);
+  getSegment: async (customerId) => {
+    const response = await axiosInstance.get(`/api/segment/${customerId}`);
     return response.data;
   },
 
-  // Update password
-  updatePassword: async (currentPassword, newPassword) => {
-    const response = await axiosInstance.patch('/api/seller/account/password', {
-      currentPassword,
-      newPassword,
-    });
+  getBasketSuggestions: async () => {
+    const response = await axiosInstance.get('/api/basket/suggest');
     return response.data;
   },
 
-  // Get seller settings
-  getSettings: async () => {
-    const response = await axiosInstance.get('/api/seller/account/settings');
-    return response.data;
-  },
-
-  // Update seller settings
-  updateSettings: async (settingsData) => {
-    const response = await axiosInstance.patch('/api/seller/account/settings', settingsData);
+  getSampleCustomers: async () => {
+    const response = await axiosInstance.get('/api/customers/sample');
     return response.data;
   },
 };
